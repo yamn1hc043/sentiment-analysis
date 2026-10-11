@@ -1,0 +1,11 @@
+text,true_label
+"App keeps crashing after the latest software update, totally unusable.",NEGATIVE
+"Disastrous service, waited three hours for response from support team.",NEGATIVE
+"The build quality feels cheap and plastic, not worth the price at all.",NEGATIVE
+"System performance is decent, but nothing extraordinary.",NEUTRAL
+"Extremely laggy UI with constant freeze issues on startup.",NEGATIVE
+"Audio output is clear and setup process was simple enough.",POSITIVE
+"Battery drains within two hours of basic daily usage.",NEGATIVE
+"Product arrived in a damaged box with missing accessories.",NEGATIVE
+"Standard packaging with default user manual included inside.",NEUTRAL
+"Refund request was rejected without any clear explanation provided.",NEGATIVE

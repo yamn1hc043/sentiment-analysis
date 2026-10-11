@@ -1,0 +1,51 @@
+text,true_label
+"I absolutely love this product!",POSITIVE
+"Terrible service. Never coming back.",NEGATIVE
+"The quality is okay, nothing special.",NEUTRAL
+"This is the best thing I've ever bought!",POSITIVE
+"I'm very disappointed with the purchase.",NEGATIVE
+"It was average, not too bad.",NEUTRAL
+"Amazing quality and fast delivery!",POSITIVE
+"Product broke after two days. Not happy.",NEGATIVE
+"It's alright, gets the job done.",NEUTRAL
+"Exceeded all my expectations!",POSITIVE
+"Completely useless and overpriced.",NEGATIVE
+"Works as described.",NEUTRAL
+"Customer support was fantastic!",POSITIVE
+"Horrible experience from start to finish.",NEGATIVE
+"It's neither good nor bad.",NEUTRAL
+"Very satisfied with the results!",POSITIVE
+"I regret buying this item.",NEGATIVE
+"Does what it's supposed to.",NEUTRAL
+"Absolutely thrilled with the performance!",POSITIVE
+"Wouldn’t recommend to anyone.",NEGATIVE
+"Just okay.",NEUTRAL
+"Love how easy it is to use!",POSITIVE
+"The product didn't work at all.",NEGATIVE
+"Meh, it’s fine I guess.",NEUTRAL
+"Five stars! Highly recommended.",POSITIVE
+"Too expensive for what you get.",NEGATIVE
+"Neutral feeling about the whole thing.",NEUTRAL
+"Great service and reliable product.",POSITIVE
+"Terribly made and feels cheap.",NEGATIVE
+"It’s okay, not the best.",NEUTRAL
+"Fantastic value for money!",POSITIVE
+"I had high hopes, but it failed.",NEGATIVE
+"No strong opinion one way or the other.",NEUTRAL
+"Highly impressed with the design.",POSITIVE
+"It stopped working in a week.",NEGATIVE
+"It’s functional.",NEUTRAL
+"Superb experience, will buy again!",POSITIVE
+"The worst experience I’ve had online.",NEGATIVE
+"Does the job.",NEUTRAL
+"This made my day!",POSITIVE
+"Extremely poor build quality.",NEGATIVE
+"Not great, not terrible.",NEUTRAL
+"A pleasure to use every time.",POSITIVE
+"Completely dissatisfied with the service.",NEGATIVE
+"Average product.",NEUTRAL
+"Brilliant! Couldn’t be happier.",POSITIVE
+"Awful, just awful.",NEGATIVE
+"It’s decent.",NEUTRAL
+"Very happy with this choice!",POSITIVE
+"I wish I could return it.",NEGATIVE
