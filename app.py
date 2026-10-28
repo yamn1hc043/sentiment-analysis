@@ -1,23 +1,26 @@
 import io
 import re
 from collections import Counter
-from typing import Dict, List, Tuple, Optional
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
 import streamlit.components.v1 as components
-
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
 from lime.lime_text import LimeTextExplainer
-from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.utils import ImageReader
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
+from reportlab.platypus import (
+    Image,
+    Paragraph,
+    SimpleDocTemplate,
+    Spacer,
+    Table,
+    TableStyle,
+)
 from sklearn.metrics import classification_report, confusion_matrix
-
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 
 # ============================================================
 # CONFIGURATION
@@ -149,7 +152,7 @@ def normalize_label(label: str) -> str:
     return LABEL_MAP.get(str(label).upper().strip(), str(label).upper().strip())
 
 
-def probability_vector(texts: List[str]) -> np.ndarray:
+def probability_vector(texts: list[str]) -> np.ndarray:
     """Return [NEGATIVE, NEUTRAL, POSITIVE] probabilities for every text."""
     if isinstance(texts, str):
         texts = [texts]
@@ -176,7 +179,7 @@ def probability_vector(texts: List[str]) -> np.ndarray:
     return np.asarray(rows, dtype=float)
 
 
-def predict_one(text: str) -> Dict:
+def predict_one(text: str) -> dict:
     probs = probability_vector([text])[0]
     idx = int(np.argmax(probs))
     label = LABELS[idx]
@@ -197,7 +200,7 @@ def predict_one(text: str) -> Dict:
     }
 
 
-def predict_many(texts: List[str]) -> List[Dict]:
+def predict_many(texts: list[str]) -> list[dict]:
     probs = probability_vector(texts)
     results = []
     for row in probs:
@@ -214,7 +217,7 @@ def predict_many(texts: List[str]) -> List[Dict]:
     return results
 
 
-def lime_predict(texts: List[str]) -> np.ndarray:
+def lime_predict(texts: list[str]) -> np.ndarray:
     return probability_vector(list(texts))
 
 
@@ -224,7 +227,7 @@ def extract_keywords(text: str, num_keywords: int = 5) -> str:
     return ", ".join(w for w, _ in Counter(words).most_common(num_keywords))
 
 
-def detect_sentiment_conflict(text: str) -> Dict:
+def detect_sentiment_conflict(text: str) -> dict:
     words = re.findall(r"\b[\w']+\b", str(text).lower())
     pos = list(dict.fromkeys(w for w in words if w in POSITIVE_WORDS))
     neg = list(dict.fromkeys(w for w in words if w in NEGATIVE_WORDS))
@@ -245,7 +248,7 @@ def detect_sentiment_conflict(text: str) -> Dict:
     }
 
 
-def explain_with_lime(text: str, num_samples: int = DEFAULT_LIME_SAMPLES) -> Dict:
+def explain_with_lime(text: str, num_samples: int = DEFAULT_LIME_SAMPLES) -> dict:
     explanation = lime_explainer.explain_instance(
         text,
         lime_predict,
@@ -261,10 +264,10 @@ def explain_with_lime(text: str, num_samples: int = DEFAULT_LIME_SAMPLES) -> Dic
 
 def calculate_explanation_reliability(
     text: str,
-    weights: List[Tuple[str, float]],
-    original: Dict,
+    weights: list[tuple[str, float]],
+    original: dict,
     max_checks: int = 3,
-) -> Dict:
+) -> dict:
     """Validate LIME direction with controlled single-feature removal."""
     if not weights:
         return {"score": 0.0, "level": "UNAVAILABLE", "checks": []}
@@ -353,7 +356,7 @@ def normalize_true_labels(series: pd.Series) -> pd.Series:
     )
 
 
-def evaluate_dataframe(df: pd.DataFrame) -> Dict:
+def evaluate_dataframe(df: pd.DataFrame) -> dict:
     if "true_label" not in df.columns:
         return {}
     true = normalize_true_labels(df["true_label"])
@@ -399,7 +402,7 @@ def process_dataframe(df: pd.DataFrame, progress_placeholder=None) -> pd.DataFra
     return result
 
 
-def dataset_summary(df: pd.DataFrame) -> Dict:
+def dataset_summary(df: pd.DataFrame) -> dict:
     counts = df["label"].value_counts().reindex(LABELS, fill_value=0)
     conflict_counts = df["conflict_level"].value_counts().reindex(["HIGH", "LOW", "NONE"], fill_value=0)
     uncertainty_counts = df["confidence_level"].value_counts().reindex(["HIGH", "MEDIUM", "LOW"], fill_value=0)
@@ -632,7 +635,7 @@ def create_comparison_pdf(primary_df: pd.DataFrame, comparison_df: pd.DataFrame)
     return buffer.getvalue()
 
 
-def create_pdf_report(df: pd.DataFrame, title: str, representative: Optional[pd.DataFrame] = None) -> bytes:
+def create_pdf_report(df: pd.DataFrame, title: str, representative: pd.DataFrame | None = None) -> bytes:
     summary = dataset_summary(df)
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=30, leftMargin=30, topMargin=30, bottomMargin=30)
